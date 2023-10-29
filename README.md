@@ -42,3 +42,32 @@ Dari contoh kode diatas, kita pake unit testing dengan function `TestServer(t *t
 - Di Golang, `Handler` ini bentuknya interface. Didalam interface tersebut, ada sebuah function `ServeHTTP(ResponseWriter, *Request)`.
 - Namun, `ServeHTTP()` itu bisa kita implementasikan dalam bentuk anonymous function bertipe `http.HandlerFunc` dengan parameter `(w http.ResponseWriter, r *http.Request)`. `w` itu untuk response ke client, sedangkan `r` untuk request dari client.
 - Kita coba berikan response "Hello World" dengan menggunakan function `Fprint()` karena `fmt.Println()` itu dipake untuk output console.
+
+Contoh:
+
+```go
+import (
+	"fmt"
+	"net/http"
+	"testing"
+)
+
+func TestHandler(t *testing.T) {
+	var handler http.HandlerFunc = func(w http.ResponseWriter, r *http.Request) {
+		// w: response untuk client
+		// r: request dari client
+		fmt.Fprint(w, "Hello world!")
+	}
+
+	server := http.Server{
+		Addr:    "127.0.0.1:8000",
+		Handler: handler,
+	}
+
+	err := server.ListenAndServe()
+
+	if err != nil {
+		panic(err)
+	}
+}
+```
