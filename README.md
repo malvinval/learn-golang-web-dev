@@ -114,12 +114,12 @@ func TestMux(t *testing.T) {
 
 	// implementasi handler menggunakan anonymous function di parameter kedua
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) { // mux.HandleFunc
-		fmt.Fprint(w, "/")
+		fmt.Fprint(w, "Ini path /")
 	})
 
 	// implementasi handler menggunakan http.HandlerFunc yang dideklarasi terlebih dahulu
 	var handler http.HandlerFunc = func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "/about")
+		fmt.Fprint(w, "Ini path /about")
 	}
 	mux.Handle("/about", handler) // mux.Handle
 
