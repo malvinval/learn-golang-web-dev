@@ -40,7 +40,7 @@ Dari contoh kode diatas, kita pake unit testing dengan function `TestServer(t *t
 
 - Sesuai namanya, `Handler` ini bertugas untuk handling (penanganan) request dari client.
 - Di Golang, `Handler` ini bentuknya interface. Didalam interface tersebut, ada sebuah function `ServeHTTP(ResponseWriter, *Request)`.
-- Namun, `ServeHTTP()` itu bisa kita implementasikan dalam bentuk anonymous function bertipe `http.HandlerFunc` dengan parameter `(w http.ResponseWriter, r *http.Request)`. `w` itu untuk response ke client, sedangkan `r` untuk request dari client.
+- Karena `Handler` ini bentuknya interface yang didalamnya ada function `ServeHTTP()`, kita harus implementasikan interface tersebut secara manual sesuai dengan *signature* atau *convention* dari interface tersebut (ingat konsep interface dalam OOP). Namun ada cara lain yang lebih gampang, yaitu membuat anonymous function bertipe `http.HandlerFunc` dengan parameter `(w http.ResponseWriter, r *http.Request)`. `w` itu untuk response ke client, sedangkan `r` untuk request dari client.
 - Kita coba berikan response "Hello World" dengan menggunakan function `Fprint()` karena `fmt.Println()` itu dipake untuk output console.
 
 Contoh:
@@ -71,3 +71,5 @@ func TestHandler(t *testing.T) {
 	}
 }
 ```
+
+> Silahkan liat kode deklarasi `HandlerFunc()` di `/usr/local/go/src/net/http/server.go` supaya lebih paham apa maksud `HandlerFunc()` ini dibuat.
