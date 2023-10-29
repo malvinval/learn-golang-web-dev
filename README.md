@@ -40,7 +40,7 @@ Dari contoh kode diatas, kita pake unit testing dengan function `TestServer(t *t
 
 - Sesuai namanya, `Handler` ini bertugas untuk handling (penanganan) request dari client.
 - Di Golang, `Handler` ini bentuknya interface. Didalam interface tersebut, ada sebuah function `ServeHTTP(ResponseWriter, *Request)`.
-- Karena `Handler` ini bentuknya interface yang didalamnya ada function `ServeHTTP()`, kita harus implementasikan interface tersebut secara manual sesuai dengan *signature* atau *convention* dari interface tersebut (ingat konsep interface dalam OOP). Namun ada cara lain yang lebih gampang, yaitu membuat anonymous function bertipe `http.HandlerFunc` dengan parameter `(w http.ResponseWriter, r *http.Request)`. `w` itu untuk response ke client, sedangkan `r` untuk request dari client.
+- Karena `Handler` ini bentuknya interface yang didalamnya ada function `ServeHTTP()`, kita harus implementasikan interface tersebut secara manual sesuai dengan *signature* atau *convention* dari interface tersebut (ingat konsep interface dalam OOP). Namun ada cara lain yang lebih gampang, yaitu membuat anonymous function bertipe `http.HandlerFunc` dengan parameter `(w http.ResponseWriter, r *http.Request)`. `w` itu untuk response ke client, sedangkan `r` untuk request dari client. `HandlerFunc` hanyalah sebuah user-defined data type yang sudah mengimplementasikan interface `Handler`.
 - Kita coba berikan response "Hello World" dengan menggunakan function `Fprint()` karena `fmt.Println()` itu dipake untuk output console.
 
 Contoh:
@@ -90,3 +90,5 @@ func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request) {
 1. `type HandlerFunc func(ResponseWriter, *Request)`: Golang mendefinisikan sebuah tipe yang disebut `HandlerFunc`.
 
 2. `func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)`: Golang menambahkan function `ServeHTTP` ke tipe `HandlerFunc`. Ini adalah contoh penerapan metode yang dikenal sebagai ***receiver function*** dalam Go. Fungsi ServeHTTP ini akan dipanggil ketika tipe `HandlerFunc` dijalankan. `f HandlerFunc` adalah penerima (receiver) dari metode ini. Berarti function `ServeHTTP` dapat dipanggil pada instance dari tipe `HandlerFunc`. Dalam metode ini, `f` merujuk pada instance `HandlerFunc` yang memanggilnya.
+
+**Kesimpulan sederhana**: memanggil function `ServeHTTP()` itu dilakukan dengan cara memanggil dan mengimplementasikan function `HandlerFunc`. Karena function `ServeHTTP()` sudah di-*attach* kedalam `HandlerFunc`.
