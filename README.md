@@ -72,4 +72,17 @@ func TestHandler(t *testing.T) {
 }
 ```
 
-> Silahkan liat kode deklarasi `HandlerFunc()` di `/usr/local/go/src/net/http/server.go` supaya lebih paham apa maksud `HandlerFunc()` ini dibuat.
+> Silahkan liat kode deklarasi `HandlerFunc()` di `/usr/local/go/src/net/http/server.go` supaya lebih paham apa maksud `HandlerFunc()` ini dibuat. Dibawah ini adalah penjelasan singkat terkait kode tersebut:
+
+```go
+type HandlerFunc func(ResponseWriter, *Request)
+
+// ServeHTTP calls f(w, r).
+func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request) {
+	f(w, r)
+}
+```
+
+1. `type HandlerFunc func(ResponseWriter, *Request)`: Golang mendefinisikan sebuah tipe yang disebut `HandlerFunc`.
+
+2. `func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)`: Golang menambahkan function `ServeHTTP` ke tipe `HandlerFunc`. Ini adalah contoh penerapan metode yang dikenal sebagai ***receiver function*** dalam Go. Fungsi ServeHTTP ini akan dipanggil ketika tipe `HandlerFunc` dijalankan. `f HandlerFunc` adalah penerima (receiver) dari metode ini. Berarti function `ServeHTTP` dapat dipanggil pada instance dari tipe `HandlerFunc`. Dalam metode ini, `f` merujuk pada instance `HandlerFunc` yang memanggilnya.
