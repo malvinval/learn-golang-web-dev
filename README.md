@@ -92,3 +92,8 @@ func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request) {
 2. `func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)`: Golang menambahkan function `ServeHTTP` ke tipe `HandlerFunc`. Ini adalah contoh penerapan metode yang dikenal sebagai ***receiver function*** dalam Go. Fungsi ServeHTTP ini akan dipanggil ketika tipe `HandlerFunc` dijalankan. `f HandlerFunc` adalah penerima (receiver) dari metode ini. Berarti function `ServeHTTP` dapat dipanggil pada instance dari tipe `HandlerFunc`. Dalam metode ini, `f` merujuk pada instance `HandlerFunc` yang memanggilnya.
 
 **Kesimpulan sederhana**: memanggil function `ServeHTTP()` itu dilakukan dengan cara memanggil dan mengimplementasikan function `HandlerFunc`. Karena function `ServeHTTP()` sudah di-*attach* kedalam `HandlerFunc`.
+
+## ServeMux
+
+- `HandlerFunc` tidak mendukung handling banyak URL endpoint. Masa iyasi web kita cuma bisa handle endpoint `/` doang?. Nah, `ServeMux` ini alternatifnya `HandlerFunc`.
+- `ServeMux` adalah implementasi Handler yang mendukung multiple endpoint.
