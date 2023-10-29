@@ -95,5 +95,5 @@ func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request) {
 
 ## ServeMux
 
-- `HandlerFunc` tidak mendukung handling banyak URL endpoint. Masa iyasi web kita cuma bisa handle endpoint `/` doang?. Nah, `ServeMux` ini alternatifnya `HandlerFunc`.
+- `HandlerFunc` tidak mendukung handling banyak URL endpoint. Masa iya web kita cuma bisa handle endpoint `/` doang? Nah, `ServeMux` ini alternatifnya `HandlerFunc`.
 - `ServeMux` adalah implementasi Handler yang mendukung multiple endpoint.
