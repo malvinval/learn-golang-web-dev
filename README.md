@@ -99,3 +99,41 @@ func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request) {
 - `ServeMux` adalah implementasi Handler yang mendukung multiple endpoint.
 
 > Inget, sebelumnya udah kita bahas bahwa `Handler` adalah sebuah interface. Jadi implementasinya bisa dengan banyak cara, contohnya `HandlerFunc`, dan `ServeMux` ini.
+
+Contoh:
+
+```go
+import (
+	"fmt"
+	"net/http"
+	"testing"
+)
+
+func TestMux(t *testing.T) {
+	mux := http.NewServeMux()
+
+	// implementasi handler menggunakan anonymous function di parameter kedua
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) { // mux.HandleFunc
+		fmt.Fprint(w, "/")
+	})
+
+	// implementasi handler menggunakan http.HandlerFunc yang dideklarasi terlebih dahulu
+	var handler http.HandlerFunc = func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, "/about")
+	}
+	mux.Handle("/about", handler) // mux.Handle
+
+	server := http.Server{
+		Addr:    "127.0.0.1:8000",
+		Handler: mux,
+	}
+
+	err := server.ListenAndServe()
+
+	if err != nil {
+		panic(err)
+	}
+}
+```
+
+Dari contoh kode diatas, kita membuat mekanisme handling `ServeMux` dengan 2 cara yang berbeda yaitu dengan function `mux.HandleFunc()` dan `mux.Handle()`. Dengan `mux.HandleFunc()`, kita membuat handlernya sebagai anonymous function di parameter kedua. Sedangkan dengan `mux.Handle()`, kita terlebih dahulu deklarasi sebuah handler `http.HandlerFunc`, lalu memasukkannya sebagai parameter kedua. Disini makin terlihat jelas bahwa sebenarnya `Handler` itu dapat diimplementasikan dengan banyak cara karena berupa interface.
