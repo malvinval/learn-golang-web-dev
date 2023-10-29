@@ -136,4 +136,4 @@ func TestMux(t *testing.T) {
 }
 ```
 
-Dari contoh kode diatas, kita membuat mekanisme handling `ServeMux` dengan 2 cara yang berbeda yaitu dengan function `mux.HandleFunc()` dan `mux.Handle()`. Dengan `mux.HandleFunc()`, kita membuat handlernya sebagai anonymous function di parameter kedua. Sedangkan dengan `mux.Handle()`, kita terlebih dahulu deklarasi sebuah handler `http.HandlerFunc`, lalu memasukkannya sebagai parameter kedua. Disini makin terlihat jelas bahwa sebenarnya `Handler` itu dapat diimplementasikan dengan banyak cara karena berupa interface.
+Dari contoh kode diatas, kita membuat mekanisme handling `ServeMux` dengan 2 cara yang berbeda yaitu dengan function `mux.HandleFunc()` dan `mux.Handle()`. Dengan `mux.HandleFunc()`, kita membuat handlernya secara langsung sebagai anonymous function di parameter kedua. Sedangkan dengan `mux.Handle()`, kita terlebih dahulu deklarasi sebuah handler (bertipe `http.HandlerFunc`). Bebas aja mau make cara yang mana.

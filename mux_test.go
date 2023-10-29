@@ -9,12 +9,12 @@ import (
 func TestMux(t *testing.T) {
 	mux := http.NewServeMux()
 
-	// implementasi handler menggunakan anonymous function di parameter kedua
+	// implementasi handler secara langsung di parameter kedua
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) { // mux.HandleFunc
 		fmt.Fprint(w, "/")
 	})
 
-	// implementasi handler menggunakan http.HandlerFunc yang dideklarasi terlebih dahulu
+	// implementasi handler yang dideklarasi terlebih dahulu (bertipe http.HandlerFunc)
 	var handler http.HandlerFunc = func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "/about")
 	}
