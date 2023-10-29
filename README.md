@@ -35,3 +35,10 @@ func TestServer(t *testing.T) {
 Dari contoh kode diatas, kita pake unit testing dengan function `TestServer(t *testing.T)`, dan jangan lupa `import "testing"`. Lalu jalankan testingnya dengan command `go test nama_file.go -v`. Flag `-v` artinya verbose yang berguna untuk menampilkan seluruh output yang ada ketika proses testing dijalankan.
 
 > **BACA LEBIH LANJUT TENTANG PACKAGE `testing`: [https://pkg.go.dev/testing](https://pkg.go.dev/testing)**
+
+## Handler
+
+- Sesuai namanya, `Handler` ini bertugas untuk handling (penanganan) request dari client.
+- Di Golang, `Handler` ini bentuknya interface. Didalam interface tersebut, ada sebuah function `ServeHTTP(ResponseWriter, *Request)`.
+- Namun, `ServeHTTP()` itu bisa kita implementasikan dalam bentuk anonymous function bertipe `http.HandlerFunc` dengan parameter `(w http.ResponseWriter, r *http.Request)`. `w` itu untuk response ke client, sedangkan `r` untuk request dari client.
+- Kita coba berikan response "Hello World" dengan menggunakan function `Fprint()` karena `fmt.Println()` itu dipake untuk output console.
