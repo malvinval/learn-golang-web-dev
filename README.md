@@ -34,7 +34,7 @@ func TestServer(t *testing.T) {
 
 Dari contoh kode diatas, kita pake unit testing dengan function `TestServer(t *testing.T)`, dan jangan lupa `import "testing"`. Lalu jalankan testingnya dengan command `go test nama_file.go -v`. Flag `-v` artinya verbose yang berguna untuk menampilkan seluruh output yang ada ketika proses testing dijalankan.
 
-> **BACA LEBIH LANJUT TENTANG PACKAGE `testing`: [https://pkg.go.dev/testing](https://pkg.go.dev/testing)**
+> **Baca lebih lanjut tentang package `testing`: [https://pkg.go.dev/testing](https://pkg.go.dev/testing)**
 
 ## Handler
 
@@ -72,9 +72,13 @@ func TestHandler(t *testing.T) {
 }
 ```
 
+
 > Silahkan liat kode deklarasi `HandlerFunc()` di `/usr/local/go/src/net/http/server.go` supaya lebih paham apa maksud `HandlerFunc()` ini dibuat. Dibawah ini adalah penjelasan singkat terkait kode tersebut:
 
+
 ```go
+// source file: /usr/local/go/src/net/http/server.go
+
 type HandlerFunc func(ResponseWriter, *Request)
 
 // ServeHTTP calls f(w, r).
