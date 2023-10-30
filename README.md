@@ -141,3 +141,46 @@ Dari contoh kode diatas, kita membuat mekanisme handling `ServeMux` dengan 2 car
 ## Request
 
 - `Request` adalah sebuah struct dalam Golang yang merepresentasikan sebuah request dari user. Semua informasi terkait request user seperti URL, header, body, method, dan lain-lain dapat kita lihat melalui `Request`.
+
+Contoh:
+
+```go
+import (
+	"fmt"
+	"net/http"
+	"testing"
+)
+
+func TestRequesr(t *testing.T) {
+	// declare mux
+	mux := http.NewServeMux()
+
+	// memberikan informasi content length request
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, r.ContentLength)
+	})
+
+	// memberikan informasi request header
+	mux.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, r.Header)
+	})
+
+	addr := "127.0.0.1:8000"
+
+	// declare server struct
+	server := http.Server{
+		Addr:    addr,
+		Handler: mux,
+	}
+
+	// execute server
+	err := server.ListenAndServe()
+
+	// server execution error handling
+	if err != nil {
+		panic(err)
+	}
+}
+```
+
+Dari contoh kode diatas, kita membuat handling menggunakan `mux`. Handling endpoint `/` memberikan response berupa Content Length, sedangkan handling enpoint `/about` memberikan response berupa header request.
