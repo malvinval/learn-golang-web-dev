@@ -137,3 +137,7 @@ func TestMux(t *testing.T) {
 ```
 
 Dari contoh kode diatas, kita membuat mekanisme handling `ServeMux` dengan 2 cara yang berbeda yaitu dengan function `mux.HandleFunc()` dan `mux.Handle()`. Dengan `mux.HandleFunc()`, kita membuat handlernya secara langsung sebagai anonymous function di parameter kedua. Sedangkan dengan `mux.Handle()`, kita terlebih dahulu deklarasi sebuah handler (bertipe `http.HandlerFunc`). Bebas aja mau make cara yang mana.
+
+## Request
+
+- `Request` adalah sebuah struct dalam Golang yang merepresentasikan sebuah request dari user. Semua informasi terkait request user seperti URL, header, body, method, dan lain-lain dapat kita lihat melalui `Request`.
