@@ -184,3 +184,36 @@ func TestRequesr(t *testing.T) {
 ```
 
 Dari contoh kode diatas, kita membuat handling menggunakan `mux`. Handling endpoint `/` memberikan response berupa Content Length, sedangkan handling enpoint `/about` memberikan response berupa header request.
+
+## `http.ServeFile()`
+
+Function `http.ServeFile()` dalam package `net/http` berguna untuk memberikan response berupa file. Function ini butuh 3 parameter yaitu `http.ResponseWriter`, `*http.Request`, dan path file dalam bentuk string. Contoh:
+
+```go
+import (
+	"log"
+	"net/http"
+	"testing"
+)
+
+func TestServeFile(t *testing.T) {
+	mux := http.NewServeMux()
+
+	server := http.Server{
+		Addr:    "127.0.0.1:8000",
+		Handler: mux,
+	}
+
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/index.html")
+	})
+
+	err := server.ListenAndServe()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+```
+
+Dari contoh kode diatas, dapat disimpulkan bahwa request ke endpoint `/` akan menghasilkan response berupa file `index.html` yang ada didalam folder `static`.
